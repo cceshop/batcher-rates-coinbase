@@ -52,7 +52,7 @@ def putRatesToCache(redis_host, redis_key, rates):
 while True:
   rates = getRates()
   rates = parseRates(rates)
-  putRatesToCache('redis', 'exchange_rates', rates)
+  putRatesToCache('127.0.0.1', 'exchange_rates', rates)
   time.sleep(300)
 
 exit(2)
