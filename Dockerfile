@@ -1,5 +1,10 @@
 FROM golang:1.12.4-alpine3.9
 
+LABEL cce.image.vendor="Crypto Currency Exchange s.r.o."
+LABEL cce.image.maintainer="Crypto Currency Exchange s.r.o."
+LABEL cce.git.repository="https://github.com/cceshop/batcher-rates-coinbase.git"
+LABEL cce.quay.repository="https://quay.io/repository/cceshop/batcher-rates-coinbase"
+
 USER root
 RUN mkdir -p /app
 WORKDIR /app
