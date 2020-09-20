@@ -19,12 +19,12 @@ type PriceCoinBase struct {
 
 func WriteToCache(price *PriceCoinBase) {
         client := redis.NewUniversalClient(&redis.UniversalOptions{
-                Addrs:       []string{"cce-redis-ha.cce.svc.cluster.local:26379"},
+                Addrs:       []string{":6379"},
 		MasterName:  "mymaster",
 		DialTimeout: 3 * time.Second,
-		Password:    "", // no password set
+		Password:    "pjneUIy9RC",
 		DB:          0,  // use default DB
-		MaxRetries:  2,
+		MaxRetries:  6,
 	})
 	defer client.Close()
 
