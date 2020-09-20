@@ -19,7 +19,7 @@ type PriceCoinBase struct {
 
 func WriteToCache(price *PriceCoinBase) {
 	client := redis.NewUniversalClient(&redis.UniversalOptions{
-		Addrs:       []string{":6379"},
+		Addrs:       []string{":26379", "16379"},
 		MasterName:  "mymaster",
 		DialTimeout: 3 * time.Second,
 		Password:    "pjneUIy9RC",
