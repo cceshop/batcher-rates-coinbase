@@ -18,17 +18,19 @@ type PriceCoinBase struct {
 }
 
 func WriteToCache(price *PriceCoinBase) {
-        client := redis.NewUniversalClient(&redis.UniversalOptions{
-                Addrs:       []string{":6379"},
+	client := redis.NewUniversalClient(&redis.UniversalOptions{
+		Addrs:       []string{":6379"},
 		MasterName:  "mymaster",
 		DialTimeout: 3 * time.Second,
 		Password:    "pjneUIy9RC",
-		DB:          0,  // use default DB
+		DB:          0, // use default DB
 		MaxRetries:  6,
 	})
 	defer client.Close()
 
-	_, err := client.Ping().Result()
+	ctx := client.Context()
+
+	_, err := client.Ping(ctx).Result()
 	if err != nil {
 		panic(err)
 	}
@@ -38,7 +40,7 @@ func WriteToCache(price *PriceCoinBase) {
 		panic(err)
 	}
 
-	err = client.Set(price.Data.Base, floatPrice, time.Duration(300 * time.Second)).Err()
+	err = client.Set(ctx, price.Data.Base, floatPrice, time.Duration(300*time.Second)).Err()
 	if err != nil {
 		panic(err)
 	}
