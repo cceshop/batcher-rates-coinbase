@@ -19,13 +19,40 @@ type PriceCoinBase struct {
 
 func WriteToCache(price *PriceCoinBase) {
 	client := redis.NewUniversalClient(&redis.UniversalOptions{
-		Addrs:       []string{":26379", ":16379", ":6379"},
+		Addrs:       []string{"redis-master.cce:6379"},
 		MasterName:  "mymaster",
 		DialTimeout: 3 * time.Second,
-		Password:    "pjneUIy9RC",
+		Password:    "y9U02p2q9m",
 		DB:          0, // use default DB
 		MaxRetries:  6,
 	})
+/*
+	client := redis.NewClusterClient(&redis.ClusterOptions{
+		Addrs:              []string{":26379", ":16379", ":6379"},
+		NewClient:          nil,
+		MaxRedirects:       0,
+		ReadOnly:           false,
+		RouteByLatency:     false,
+		RouteRandomly:      false,
+		ClusterSlots:       nil,
+		Dialer:             nil,
+		OnConnect:          nil,
+		Username:           "",
+		Password:           "y9U02p2q9m",
+		MaxRetries:         5,
+		MinRetryBackoff:    3,
+		MaxRetryBackoff:    0,
+		DialTimeout:        3 * time.Second,
+		ReadTimeout:        3 * time.Second,
+		WriteTimeout:       3 * time.Second,
+		PoolSize:           0,
+		MinIdleConns:       0,
+		MaxConnAge:         0,
+		PoolTimeout:        0,
+		IdleTimeout:        0,
+		IdleCheckFrequency: 0,
+		TLSConfig:          nil,
+	})*/
 	defer client.Close()
 
 	ctx := client.Context()
