@@ -27,20 +27,16 @@ func WriteToCache(price *PriceCoinBase) {
 		MaxRetries:  6,
 	})*/
 
-	client := redis.NewClusterClient(&redis.ClusterOptions{
-		Addrs:              []string{"redis-master.cce:6379"},
-		NewClient:          nil,
-		MaxRedirects:       0,
-		ReadOnly:           false,
-		RouteByLatency:     false,
-		RouteRandomly:      false,
-		ClusterSlots:       nil,
+	client := redis.NewClient(&redis.Options{
+		Network:            "tcp",
+		Addr:               "redis-master.cce:6379",
 		Dialer:             nil,
 		OnConnect:          nil,
 		Username:           "",
 		Password:           "y9U02p2q9m",
-		MaxRetries:         5,
-		MinRetryBackoff:    3,
+		DB:                 0,
+		MaxRetries:         2,
+		MinRetryBackoff:    0,
 		MaxRetryBackoff:    0,
 		DialTimeout:        3 * time.Second,
 		ReadTimeout:        3 * time.Second,
@@ -48,10 +44,11 @@ func WriteToCache(price *PriceCoinBase) {
 		PoolSize:           0,
 		MinIdleConns:       0,
 		MaxConnAge:         0,
-		PoolTimeout:        0,
-		IdleTimeout:        0,
+		PoolTimeout:        3 * time.Second,
+		IdleTimeout:        3 * time.Second,
 		IdleCheckFrequency: 0,
 		TLSConfig:          nil,
+		Limiter:            nil,
 	})
 
 	defer client.Close()
